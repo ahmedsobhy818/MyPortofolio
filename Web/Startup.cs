@@ -19,7 +19,7 @@ namespace Web
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;//to acess appsettings.json file
         }
 
         public IConfiguration Configuration { get; }
