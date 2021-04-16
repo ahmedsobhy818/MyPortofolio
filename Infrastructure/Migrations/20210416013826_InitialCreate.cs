@@ -1,12 +1,27 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Web.Migrations
+namespace Infrastructure.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("63d093d0-142f-47b1-9512-b6ddaa318976")),
+                    Street = table.Column<string>(nullable: true),
+                    Number = table.Column<int>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -44,6 +59,27 @@ namespace Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Owner",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("c1f71bda-600d-4043-a081-f00fd3c6ab35")),
+                    FullName = table.Column<string>(nullable: true),
+                    Job = table.Column<string>(nullable: true),
+                    Avatar = table.Column<string>(nullable: true),
+                    AddressId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Owner", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Owner_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +188,42 @@ namespace Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PortofolioItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("36dfc7ab-d963-46d5-ba28-cbd7d16e81ad")),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    OwnerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PortofolioItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PortofolioItems_Owner_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Owner",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Addresses",
+                columns: new[] { "Id", "City", "Country", "Number", "Street" },
+                values: new object[] { new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"), "Cairo", "Egypt", 1, "Ibrahim Bik Al Kabeer" });
+
+            migrationBuilder.InsertData(
+                table: "Owner",
+                columns: new[] { "Id", "AddressId", "Avatar", "FullName", "Job" },
+                values: new object[] { new Guid("50473831-7621-48ba-8874-0e1670adc462"), new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"), "avatar.jpg", "Ahmed Sobhy", ".Net Full Stack Developer" });
+
+            migrationBuilder.InsertData(
+                table: "PortofolioItems",
+                columns: new[] { "Id", "Description", "ImageUrl", "Name", "OwnerId" },
+                values: new object[] { new Guid("176461e1-90e1-4681-ac67-fe1a3953687a"), "responsive website using latest microsof technologies", "portofolio1.jpg", "Asp.net web development", new Guid("50473831-7621-48ba-8874-0e1670adc462") });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +262,16 @@ namespace Web.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Owner_AddressId",
+                table: "Owner",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PortofolioItems_OwnerId",
+                table: "PortofolioItems",
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +292,19 @@ namespace Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "PortofolioItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Owner");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }
