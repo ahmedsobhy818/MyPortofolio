@@ -15,6 +15,6 @@ namespace Core.Entities
         [ForeignKey("Owner")]
         public System.Guid OwnerId { get; set; }//only to use in  data seed code , as we cant use the "Owner" objeect in that code
         //
-        public virtual ICollection<PortofolioItem> PortofolioItems { get; set; }
+        
     }
 }

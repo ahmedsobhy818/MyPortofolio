@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Entities
 {
@@ -12,6 +13,7 @@ namespace Core.Entities
         [ForeignKey("Address")]
         public System.Guid AddressId { get; set; } //only to use in  data seed code , as we cant use the "Address" objeect in that code
 
+        public virtual ICollection<PortofolioItem> PortofolioItems { get; set; }
 
     }
 }

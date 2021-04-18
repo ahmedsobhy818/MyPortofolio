@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210416013826_InitialCreate")]
+    [Migration("20210418220522_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("63d093d0-142f-47b1-9512-b6ddaa318976"));
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -42,12 +42,12 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"),
+                            Id = new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"),
                             City = "Cairo",
                             Country = "Egypt",
                             Number = 1,
@@ -60,7 +60,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("c1f71bda-600d-4043-a081-f00fd3c6ab35"));
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
@@ -83,8 +83,8 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("50473831-7621-48ba-8874-0e1670adc462"),
-                            AddressId = new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"),
+                            Id = new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3"),
+                            AddressId = new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"),
                             Avatar = "avatar.jpg",
                             FullName = "Ahmed Sobhy",
                             Job = ".Net Full Stack Developer"
@@ -96,7 +96,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("36dfc7ab-d963-46d5-ba28-cbd7d16e81ad"));
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -114,16 +114,16 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("PortofolioItems");
+                    b.ToTable("PortofolioItem");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("176461e1-90e1-4681-ac67-fe1a3953687a"),
+                            Id = new Guid("81a482de-0a19-4d6d-89ff-2bf2e416171e"),
                             Description = "responsive website using latest microsof technologies",
                             ImageUrl = "portofolio1.jpg",
                             Name = "Asp.net web development",
-                            OwnerId = new Guid("50473831-7621-48ba-8874-0e1670adc462")
+                            OwnerId = new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3")
                         });
                 });
 
@@ -339,7 +339,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.PortofolioItem", b =>
                 {
                     b.HasOne("Core.Entities.Owner", "Owner")
-                        .WithMany()
+                        .WithMany("PortofolioItems")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

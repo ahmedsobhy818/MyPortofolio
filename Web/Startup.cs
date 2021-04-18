@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure;
+using Infrastructure.Repository;
+using Infrastructure.UnitOfWork;
+using Infrastructure.UnitOfWork.MyUOW;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +37,7 @@ namespace Web
             //   options.UseSqlServer(
             //       Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<DataContext>(options =>
+            var ret=services.AddDbContext<DataContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
                 options.UseSqlServer(
@@ -41,6 +45,7 @@ namespace Web
               } 
                ) ;
 
+            
 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -48,9 +53,27 @@ namespace Web
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DataContext>();
 
+            
+            
+            
+
 
             services.AddControllersWithViews(); 
             services.AddRazorPages();
+
+
+            
+            
+            services.AddScoped<IUnitOfWork<PortofolioUOW>, PortofolioUOW>();
+            services.AddScoped<IUnitOfWork<TestUOW>, TestUOW>();
+
+
+            //the next 2 lines work , they help me to inject PortrofolioUOW directly to the controller not injecting the interface ,
+            //but i am not sure is "context" is the same DataContext created or not
+            //so i will still injecting the interrface as the previous 2 lines
+
+            //        var context = services.BuildServiceProvider().GetService<DataContext>();
+            //      services.AddScoped<IUnitOfWork>(sp => new PortofolioUOW(context));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

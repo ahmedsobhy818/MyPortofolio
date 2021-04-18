@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure
 {
    public  class DataContext : IdentityDbContext// DbContext
+
     {
+       
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
@@ -18,9 +20,9 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Owner>().Property(x => x.Id).HasDefaultValue(Guid.NewGuid());
-            builder.Entity<PortofolioItem>().Property(x => x.Id).HasDefaultValue(Guid.NewGuid());
-            builder.Entity<Address>().Property(x => x.Id).HasDefaultValue(Guid.NewGuid());
+            builder.Entity<Owner>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            builder.Entity<PortofolioItem>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            builder.Entity<Address>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
 
 
             Address address = new Address { Id = Guid.NewGuid(), City = "Cairo", Country = "Egypt", Number = 1, Street = "Ibrahim Bik Al Kabeer" };

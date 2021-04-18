@@ -8,10 +8,10 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("63d093d0-142f-47b1-9512-b6ddaa318976")),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
                     Street = table.Column<string>(nullable: true),
                     Number = table.Column<int>(nullable: false),
                     City = table.Column<string>(nullable: true),
@@ -19,7 +19,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_Address", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +65,7 @@ namespace Infrastructure.Migrations
                 name: "Owner",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("c1f71bda-600d-4043-a081-f00fd3c6ab35")),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
                     FullName = table.Column<string>(nullable: true),
                     Job = table.Column<string>(nullable: true),
                     Avatar = table.Column<string>(nullable: true),
@@ -75,9 +75,9 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Owner", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Owner_Addresses_AddressId",
+                        name: "FK_Owner_Address_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Addresses",
+                        principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -189,10 +189,10 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PortofolioItems",
+                name: "PortofolioItem",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValue: new Guid("36dfc7ab-d963-46d5-ba28-cbd7d16e81ad")),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
@@ -200,9 +200,9 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PortofolioItems", x => x.Id);
+                    table.PrimaryKey("PK_PortofolioItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PortofolioItems_Owner_OwnerId",
+                        name: "FK_PortofolioItem_Owner_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "Owner",
                         principalColumn: "Id",
@@ -210,19 +210,19 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Addresses",
+                table: "Address",
                 columns: new[] { "Id", "City", "Country", "Number", "Street" },
-                values: new object[] { new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"), "Cairo", "Egypt", 1, "Ibrahim Bik Al Kabeer" });
+                values: new object[] { new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"), "Cairo", "Egypt", 1, "Ibrahim Bik Al Kabeer" });
 
             migrationBuilder.InsertData(
                 table: "Owner",
                 columns: new[] { "Id", "AddressId", "Avatar", "FullName", "Job" },
-                values: new object[] { new Guid("50473831-7621-48ba-8874-0e1670adc462"), new Guid("628d91e3-97cd-4cd1-a71b-c986bfac32b7"), "avatar.jpg", "Ahmed Sobhy", ".Net Full Stack Developer" });
+                values: new object[] { new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3"), new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"), "avatar.jpg", "Ahmed Sobhy", ".Net Full Stack Developer" });
 
             migrationBuilder.InsertData(
-                table: "PortofolioItems",
+                table: "PortofolioItem",
                 columns: new[] { "Id", "Description", "ImageUrl", "Name", "OwnerId" },
-                values: new object[] { new Guid("176461e1-90e1-4681-ac67-fe1a3953687a"), "responsive website using latest microsof technologies", "portofolio1.jpg", "Asp.net web development", new Guid("50473831-7621-48ba-8874-0e1670adc462") });
+                values: new object[] { new Guid("81a482de-0a19-4d6d-89ff-2bf2e416171e"), "responsive website using latest microsof technologies", "portofolio1.jpg", "Asp.net web development", new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -269,8 +269,8 @@ namespace Infrastructure.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PortofolioItems_OwnerId",
-                table: "PortofolioItems",
+                name: "IX_PortofolioItem_OwnerId",
+                table: "PortofolioItem",
                 column: "OwnerId");
         }
 
@@ -292,7 +292,7 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PortofolioItems");
+                name: "PortofolioItem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -304,7 +304,7 @@ namespace Infrastructure.Migrations
                 name: "Owner");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Address");
         }
     }
 }
