@@ -4,14 +4,16 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210419214027_Owner-UserId")]
+    partial class OwnerUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("17587ccc-e504-47f6-b5ef-8e5e0f30665a"),
+                            Id = new Guid("cd6912bb-7c91-4e32-a3f7-32b65340083e"),
                             City = "Cairo",
                             Country = "Egypt",
                             Number = 1,
@@ -84,11 +86,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a1f1315c-2170-4f1c-8c54-bd2748e4d246"),
-                            AddressId = new Guid("17587ccc-e504-47f6-b5ef-8e5e0f30665a"),
-                            Avatar = "dafault.jpg",
-                            FullName = "go to Home/Index to login",
-                            Job = "Dashboard/Create(Edit)Profile - Dashboard/ShowPortofolioItems - Portofolio/Index/Guid? "
+                            Id = new Guid("1864e00e-dbf5-44de-9a47-4ae565769e0b"),
+                            AddressId = new Guid("cd6912bb-7c91-4e32-a3f7-32b65340083e"),
+                            Avatar = "avatar.jpg",
+                            FullName = "Ahmed Sobhy",
+                            Job = ".Net Full Stack Developer"
                         });
                 });
 
@@ -120,11 +122,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c8aa18cd-dbf0-4455-b74e-f57be14245de"),
-                            Description = "description of portrofolio1",
+                            Id = new Guid("ade9d913-17c2-4d10-b6b9-f91069090fec"),
+                            Description = "responsive website using latest microsof technologies",
                             ImageUrl = "portofolio1.jpg",
-                            Name = "portofolio1",
-                            OwnerId = new Guid("a1f1315c-2170-4f1c-8c54-bd2748e4d246")
+                            Name = "Asp.net web development",
+                            OwnerId = new Guid("1864e00e-dbf5-44de-9a47-4ae565769e0b")
                         });
                 });
 

@@ -1,4 +1,6 @@
-﻿namespace Core.Interfaces
+﻿using Core.Entities;
+
+namespace Core.Interfaces
 {
     public interface IUnitOfWork<T> where T:class// T is not used
         //T is used donly to differentiate between unit of works
@@ -13,5 +15,6 @@
     {
         //  IGenericRepository<T> Entity { get; }
         void Save();
+        
     }
 }

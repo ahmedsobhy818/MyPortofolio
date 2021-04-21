@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210418220522_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210421161325_ChangeSEED")]
+    partial class ChangeSEED
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"),
+                            Id = new Guid("17587ccc-e504-47f6-b5ef-8e5e0f30665a"),
                             City = "Cairo",
                             Country = "Egypt",
                             Number = 1,
@@ -74,6 +74,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Job")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -83,11 +86,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3"),
-                            AddressId = new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"),
-                            Avatar = "avatar.jpg",
-                            FullName = "Ahmed Sobhy",
-                            Job = ".Net Full Stack Developer"
+                            Id = new Guid("a1f1315c-2170-4f1c-8c54-bd2748e4d246"),
+                            AddressId = new Guid("17587ccc-e504-47f6-b5ef-8e5e0f30665a"),
+                            Avatar = "dafault.jpg",
+                            FullName = "go to Home/Index to login",
+                            Job = "Dashboard/Create(Edit)Profile - Dashboard/ShowPortofolioItems - Portofolio/Index/Guid? "
                         });
                 });
 
@@ -119,11 +122,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("81a482de-0a19-4d6d-89ff-2bf2e416171e"),
-                            Description = "responsive website using latest microsof technologies",
+                            Id = new Guid("c8aa18cd-dbf0-4455-b74e-f57be14245de"),
+                            Description = "description of portrofolio1",
                             ImageUrl = "portofolio1.jpg",
-                            Name = "Asp.net web development",
-                            OwnerId = new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3")
+                            Name = "portofolio1",
+                            OwnerId = new Guid("a1f1315c-2170-4f1c-8c54-bd2748e4d246")
                         });
                 });
 

@@ -1,0 +1,54 @@
+﻿@model Web.ViewModels.PortofolioItemViewModel
+
+@{
+    ViewData["Title"] = "EditPortofolioItem";
+}
+
+<h1>EditPortofolioItem</h1>
+
+<h4>PortofolioItemViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPortofolioItem" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <input asp-for="ItemId" class="form-control" readonly />
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <img src="~/img/portfolio/@Model.ImageFile" class="img-thumbnail" style="height:60px;width:60px" />
+                <input asp-for="ImageUploader" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <input asp-for="ImageFile" type="hidden" class="form-control" />
+                @Html.ValidationMessage("upload", htmlAttributes: new { style = "color:red" })
+            </div>
+            <input asp-for="OwnerId" type="hidden" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ShowPortofolioItems">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

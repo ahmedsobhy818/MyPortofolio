@@ -212,17 +212,17 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Address",
                 columns: new[] { "Id", "City", "Country", "Number", "Street" },
-                values: new object[] { new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"), "Cairo", "Egypt", 1, "Ibrahim Bik Al Kabeer" });
+                values: new object[] { new Guid("daef9fc1-9227-4674-98fb-a3a41716ef6d"), "Cairo", "Egypt", 1, "Ibrahim Bik Al Kabeer" });
 
             migrationBuilder.InsertData(
                 table: "Owner",
                 columns: new[] { "Id", "AddressId", "Avatar", "FullName", "Job" },
-                values: new object[] { new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3"), new Guid("ebb8ca7e-ddf0-410b-82d3-595c83730725"), "avatar.jpg", "Ahmed Sobhy", ".Net Full Stack Developer" });
+                values: new object[] { new Guid("4570edce-5924-46af-b36a-d9cc8fbe3d57"), new Guid("daef9fc1-9227-4674-98fb-a3a41716ef6d"), "avatar.jpg", "Ahmed Sobhy", ".Net Full Stack Developer" });
 
             migrationBuilder.InsertData(
                 table: "PortofolioItem",
                 columns: new[] { "Id", "Description", "ImageUrl", "Name", "OwnerId" },
-                values: new object[] { new Guid("81a482de-0a19-4d6d-89ff-2bf2e416171e"), "responsive website using latest microsof technologies", "portofolio1.jpg", "Asp.net web development", new Guid("0fde2659-226d-4d72-8db7-d1b50182bea3") });
+                values: new object[] { new Guid("2279fd18-1cec-4888-bb90-9aac98279b6f"), "responsive website using latest microsof technologies", "portofolio1.jpg", "Asp.net web development", new Guid("4570edce-5924-46af-b36a-d9cc8fbe3d57") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

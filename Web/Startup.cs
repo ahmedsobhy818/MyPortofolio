@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Base_Classes;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure;
@@ -39,9 +40,9 @@ namespace Web
 
             var ret=services.AddDbContext<DataContext>(options =>
             {
-                options.EnableSensitiveDataLogging();
+                //options.EnableSensitiveDataLogging();
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"));
+                    Configuration.GetConnectionString("SqlServerConn"));
               } 
                ) ;
 
@@ -62,12 +63,12 @@ namespace Web
             services.AddRazorPages();
 
 
-            
-            
+
+
             services.AddScoped<IUnitOfWork<PortofolioUOW>, PortofolioUOW>();
             services.AddScoped<IUnitOfWork<TestUOW>, TestUOW>();
-
-
+            
+            
             //the next 2 lines work , they help me to inject PortrofolioUOW directly to the controller not injecting the interface ,
             //but i am not sure is "context" is the same DataContext created or not
             //so i will still injecting the interrface as the previous 2 lines

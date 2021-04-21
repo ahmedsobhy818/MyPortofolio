@@ -15,5 +15,12 @@ namespace Core.Entities
 
         public virtual ICollection<PortofolioItem> PortofolioItems { get; set; }
 
+        //public IdentityUser User { get; set; } //i commented it because i did not want to install asp.net core identity classes into the Core Project
+        
+        //[ForeignKey("User")] //i commented it because i dont have User object as i said in the prervious line
+        
+        //so i just need UserId to get the owner related to autheneticated user . i  dont need to refer to Owner.User
+        public System.Guid? UserId { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,9 +15,13 @@ namespace Infrastructure
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
+            //this.Users is of type DbSet<IdentityUser>
+            
+           // var user = this.Users.First();//user is of type IdentityUser
+            //var tp = user.GetType();
             
         }
-        
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -31,10 +36,11 @@ namespace Infrastructure
             Owner Me = new Owner
             {
                 Id = Guid.NewGuid(),
-                FullName = "Ahmed Sobhy",
-                Avatar = "avatar.jpg",
-                Job = ".Net Full Stack Developer",
-                AddressId=address.Id    
+                FullName = "go to Home/Index to login",
+                Avatar = "dafault.jpg",
+                Job = "Dashboard/Create(Edit)Profile - Dashboard/ShowPortofolioItems - Portofolio/Index/Guid? ",
+                AddressId=address.Id  
+                
 
             };
             builder.Entity<Owner>().HasData(Me);
@@ -43,17 +49,16 @@ namespace Infrastructure
             PortofolioItem item = new PortofolioItem
             {
                 Id = Guid.NewGuid(),
-                Name = "Asp.net web development",
-                Description = "responsive website using latest microsof technologies",
+                Name = "portofolio1",
+                Description = "description of portrofolio1",
                 ImageUrl = "portofolio1.jpg",
                 OwnerId=Me.Id
             };
             builder.Entity<PortofolioItem>().HasData(item);
-            //
-            
-            
+            //here we cant do this.SaveChanges ()  and cant add element to any DbSet, so we generate the Key Values in c# and put then in the FK values as you see
+
         }
-        
+
         public DbSet<Owner> Owner { get; set; }
         public DbSet<PortofolioItem> PortofolioItem { get; set; }
         public DbSet<Address> Address { get; set; }

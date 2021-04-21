@@ -19,5 +19,21 @@ namespace Infrastructure.Repository
         {
             return GetAllAsQueryable().Include(c => c.Address).First();
         }
+        public Owner GetDefaultOwner()
+        {
+            return GetAllAsQueryable().Include(c => c.Address).Include(c => c.PortofolioItems).FirstOrDefault(c => c.UserId == null);
+        }
+
+        internal Owner DownloadOwnerWithFullDetails(Guid? id)
+        {
+           return  (id!=null?   GetAllAsQueryable().Include(c => c.Address).Include(c => c.PortofolioItems).FirstOrDefault(c=>c.Id==id):null) ;
+        }
+
+      
+
+        internal object DownloadOwnerByUserIDWithFullDetails(Guid? userid)
+        {
+            return (userid != null ? GetAllAsQueryable().Include(c => c.Address).Include(c => c.PortofolioItems).FirstOrDefault(c => c.UserId == userid) : null);
+        }
     }
 }
